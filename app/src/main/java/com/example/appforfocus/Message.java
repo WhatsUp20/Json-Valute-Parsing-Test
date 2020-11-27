@@ -1,32 +1,88 @@
 package com.example.appforfocus;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Message {
 
     @SerializedName("ID")
-    private String id;
+    @Expose
+    private String ID;
     @SerializedName("NumCode")
-    private int numCode;
+    @Expose
+    private String NumCode;
     @SerializedName("CharCode")
-    private String charCode;
+    @Expose
+    private String CharCode;
     @SerializedName("Nominal")
-    private int nominal;
+    @Expose
+    private float Nominal;
     @SerializedName("Name")
-    private String name;
+    @Expose
+    private String Name;
     @SerializedName("Value")
-    private double value;
+    @Expose
+    private float Value;
     @SerializedName("Previous")
-    private double previous;
+    @Expose
+    private float Previous;
 
-    public Message(String id, int numCode, String charCode, int nominal, String name, double value, double previous) {
-
-        this.id = id;
-        this.numCode = numCode;
-        this.charCode = charCode;
-        this.nominal = nominal;
-        this.name = name;
-        this.value = value;
-        this.previous = previous;
+    public String getID() {
+        return ID;
     }
-}
+
+    public String getNumCode() {
+        return NumCode;
+    }
+
+    public String getCharCode() {
+        return CharCode;
+    }
+
+    public float getNominal() {
+        return Nominal;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public float getValue() {
+        return Value;
+    }
+
+    public float getPrevious() {
+        return Previous;
+    }
+
+    // Setter Methods
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setNumCode(String NumCode) {
+        this.NumCode = NumCode;
+    }
+
+    public void setCharCode(String CharCode) {
+        this.CharCode = CharCode;
+    }
+
+    public void setNominal(float Nominal) {
+        this.Nominal = Nominal;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public void setValue(float Value) {
+        this.Value = Value;
+    }
+
+    public void setPrevious(float Previous) {
+        this.Previous = Previous;
+    }
+    }
+

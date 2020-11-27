@@ -15,13 +15,13 @@ import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    List<CurrencyResponce> responces = new ArrayList<>();
+    List<Message> responces = new ArrayList<>();
 
-    public List<CurrencyResponce> getPosts() {
+    public List<Message> getResponces() {
         return responces;
     }
 
-    public void setResponces(List<CurrencyResponce> posts) {
+    public void setResponces(List<Message> responces) {
         this.responces = responces;
         notifyDataSetChanged();
     }
@@ -58,11 +58,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             textViewBody = itemView.findViewById(R.id.text_view_body);
         }
 
-        void bind(CurrencyResponce responce) {
-            textViewUserId.setText("" + responce.getDate());
-            textViewId.setText(""+ responce.getPreviousDate());
-            textViewTitle.setText(responce.getPreviousURL());
-            textViewBody.setText(responce.getTimestamp());
+        void bind(Message message) {
+            textViewUserId.setText(""+ message.getValue());
+            textViewId.setText(message.getID());
+            textViewTitle.setText(""+ message.getNominal());
+            textViewBody.setText("" + message.getPrevious());
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.appforfocus.focus;
 
+import com.example.appforfocus.Message;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,7 +26,7 @@ public class CurrencyResponce {
 
     @SerializedName("Valute")
     @Expose
-    private Map<String, String> Valute;
+    private Map<String, Message> Valute;
 
     public String getDate() {
         return Date;
@@ -59,11 +60,12 @@ public class CurrencyResponce {
         Timestamp = timestamp;
     }
 
-    public Map<String, String> getValute() {
+    public Map<String, Message> getValute() {
         return Valute;
     }
 
-    public void setValute(Map<String, String> valute) {
+    public void setValute(Map<String, Message> valute) {
         Valute = valute;
     }
 }
+
