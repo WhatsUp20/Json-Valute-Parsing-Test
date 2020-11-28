@@ -5,13 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.appforfocus.focus.CurrencyResponce;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-
     }
 
     private void getInfo() {
@@ -46,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
                             Collection<Valutes> valutes = response.body().getValute().values();
-                            if (valutes.equals(Valutes.class)) {
-                                adapter.setResponces((List<Valutes>) valutes);
-                            } else
-                                Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_LONG).show();
-                             }
+                            List<Valutes> list = new ArrayList<>(valutes);
+                            adapter.setResponces(list);
+                            CurrencyResponce currencyResponces = response.body();
+                            String content = "" + currencyResponces.getDate();
+                            textView.append(content);
 
                         }
+                    }
 
                     @Override
                     public void onFailure(Call<CurrencyResponce> call, Throwable t) {
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void UploadInfo(View view) {
+        textView.setText("");
         getInfo();
     }
 }

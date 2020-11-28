@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    List<Valutes> responces = new ArrayList<Valutes>() {
+
+    List<Valutes> responces = new ArrayList() {
     };
 
     public List<Valutes> getResponces() {
@@ -44,6 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     static class PostViewHolder extends RecyclerView.ViewHolder{
 
+        TextView textViewDate;
         TextView textViewId;
         TextView textViewNumCode;
         TextView textViewCharCode;
@@ -54,6 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
+
             textViewId = itemView.findViewById(R.id.text_view_id);
             textViewNumCode = itemView.findViewById(R.id.text_view_num_code);
             textViewCharCode = itemView.findViewById(R.id.text_view_char_code);
@@ -64,13 +69,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         void bind(Valutes valutes) {
-            textViewId.setText(valutes.getID());
-            textViewNumCode.setText(valutes.getNumCode());
-            textViewCharCode.setText(valutes.getCharCode());
-            textViewNominal.setText("" + valutes.getNominal());
-            textViewName.setText(valutes.getName());
-            textViewValue.setText("" + valutes.getValue());
-            textViewPrevious.setText("" + valutes.getPrevious());
+            textViewId.setText("ID: " + valutes.getID());
+            textViewNumCode.setText("NumCode: " + valutes.getNumCode());
+            textViewCharCode.setText("CharCode: " + valutes.getCharCode());
+            textViewNominal.setText("Nominal: " + valutes.getNominal());
+            textViewName.setText("Name: " + valutes.getName());
+            textViewValue.setText("Value: " + valutes.getValue());
+            textViewPrevious.setText("Previous: " + valutes.getPrevious());
 
         }
     }
