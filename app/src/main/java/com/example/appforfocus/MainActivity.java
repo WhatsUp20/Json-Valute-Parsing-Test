@@ -15,8 +15,10 @@ import com.example.appforfocus.focus.CurrencyResponce;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -27,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PostAdapter adapter;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new PostAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
-                            Collection<Message> currencyResponces = response.body().getValute().values();
-                            Log.d("responce test", currencyResponces.toString());
+                            Collection<Message> messages = response.body().getValute().values();
+                            if (messages.equals(Message.class)) {
+                                adapter.setResponces((List<Message>) messages);
+                            } else
+                                Toast.makeText(MainActivity.this, "Ошибка!", Toast.LENGTH_LONG).show();
                              }
 
                         }

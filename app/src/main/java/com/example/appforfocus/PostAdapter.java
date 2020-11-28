@@ -8,14 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appforfocus.focus.CurrencyResponce;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    List<Message> responces = new ArrayList<>();
+    List<Message> responces = new ArrayList<Message>() {
+    };
 
     public List<Message> getResponces() {
         return responces;
@@ -45,24 +45,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     static class PostViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewUserId;
         TextView textViewId;
-        TextView textViewTitle;
-        TextView textViewBody;
+        TextView textViewNumCode;
+        TextView textViewCharCode;
+        TextView textViewNominal;
+        TextView textViewName;
+        TextView textViewValue;
+        TextView textViewPrevious;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewUserId = itemView.findViewById(R.id.text_view_user_id);
             textViewId = itemView.findViewById(R.id.text_view_id);
-            textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewBody = itemView.findViewById(R.id.text_view_body);
+            textViewNumCode = itemView.findViewById(R.id.text_view_num_code);
+            textViewCharCode = itemView.findViewById(R.id.text_view_char_code);
+            textViewNominal = itemView.findViewById(R.id.text_view_nominal);
+            textViewName = itemView.findViewById(R.id.text_view_name);
+            textViewValue = itemView.findViewById(R.id.text_view_value);
+            textViewPrevious = itemView.findViewById(R.id.tex_view_previous);
         }
 
         void bind(Message message) {
-            textViewUserId.setText(""+ message.getValue());
             textViewId.setText(message.getID());
-            textViewTitle.setText(""+ message.getNominal());
-            textViewBody.setText("" + message.getPrevious());
+            textViewNumCode.setText(message.getNumCode());
+            textViewCharCode.setText(message.getCharCode());
+            textViewNominal.setText("" + message.getNominal());
+            textViewName.setText(message.getName());
+            textViewValue.setText("" + message.getValue());
+            textViewPrevious.setText("" + message.getPrevious());
+
         }
     }
 }
