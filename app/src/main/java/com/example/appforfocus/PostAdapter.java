@@ -9,19 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    List<Message> responces = new ArrayList<Message>() {
+    List<Valutes> responces = new ArrayList<Valutes>() {
     };
 
-    public List<Message> getResponces() {
+    public List<Valutes> getResponces() {
         return responces;
     }
 
-    public void setResponces(List<Message> responces) {
+    public void setResponces(List<Valutes> responces) {
         this.responces = responces;
         notifyDataSetChanged();
     }
@@ -64,14 +63,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             textViewPrevious = itemView.findViewById(R.id.tex_view_previous);
         }
 
-        void bind(Message message) {
-            textViewId.setText(message.getID());
-            textViewNumCode.setText(message.getNumCode());
-            textViewCharCode.setText(message.getCharCode());
-            textViewNominal.setText("" + message.getNominal());
-            textViewName.setText(message.getName());
-            textViewValue.setText("" + message.getValue());
-            textViewPrevious.setText("" + message.getPrevious());
+        void bind(Valutes valutes) {
+            textViewId.setText(valutes.getID());
+            textViewNumCode.setText(valutes.getNumCode());
+            textViewCharCode.setText(valutes.getCharCode());
+            textViewNominal.setText("" + valutes.getNominal());
+            textViewName.setText(valutes.getName());
+            textViewValue.setText("" + valutes.getValue());
+            textViewPrevious.setText("" + valutes.getPrevious());
 
         }
     }

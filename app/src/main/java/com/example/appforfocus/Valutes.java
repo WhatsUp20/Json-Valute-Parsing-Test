@@ -3,7 +3,7 @@ package com.example.appforfocus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Message {
+public class Valutes {
 
     @SerializedName("ID")
     @Expose

@@ -5,21 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.appforfocus.focus.CurrencyResponce;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
-                            Collection<Message> messages = response.body().getValute().values();
-                            if (messages.equals(Message.class)) {
-                                adapter.setResponces((List<Message>) messages);
+                            Collection<Valutes> valutes = response.body().getValute().values();
+                            if (valutes.equals(Valutes.class)) {
+                                adapter.setResponces((List<Valutes>) valutes);
                             } else
-                                Toast.makeText(MainActivity.this, "Ошибка!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_LONG).show();
                              }
 
                         }
