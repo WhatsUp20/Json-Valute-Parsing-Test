@@ -1,9 +1,32 @@
 package com.example.appforfocus;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "valutes")
 public class Valutes {
+
+    public Valutes(int ide, String ID, String NumCode, String CharCode, float Nominal, String Name, float Value, float Previous) {
+        this.ide = ide;
+        this.ID = ID;
+        this.NumCode = NumCode;
+        this.CharCode = CharCode;
+        this.Nominal = Nominal;
+        this.Name = Name;
+        this.Value = Value;
+        this.Previous = Previous;
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    private int ide;
+
+    public int getIde() {
+        return ide;
+    }
 
     @SerializedName("ID")
     @Expose

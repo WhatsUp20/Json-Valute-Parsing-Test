@@ -41,7 +41,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     static class PostViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewDate;
         TextView textViewId;
         TextView textViewNumCode;
         TextView textViewCharCode;
