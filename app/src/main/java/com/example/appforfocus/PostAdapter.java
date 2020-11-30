@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -18,10 +16,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     List<Valutes> responces = new ArrayList() {
     };
-
-    public List<Valutes> getResponces() {
-        return responces;
-    }
 
     public void setResponces(List<Valutes> responces) {
         this.responces = responces;

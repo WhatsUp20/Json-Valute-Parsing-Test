@@ -1,6 +1,8 @@
 package com.example.appforfocus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PostAdapter adapter;
-    private TextView textView;
+    private TextView textViewInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textView);
+        textViewInfo = findViewById(R.id.textViewInfo);
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new PostAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,12 +51,26 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
                             Collection<Valutes> valutes = response.body().getValute().values();
-                            List<Valutes> list = new ArrayList<>(valutes);
+                            final List<Valutes> list = new ArrayList<>(valutes);
                             adapter.setResponces(list);
                             CurrencyResponce currencyResponces = response.body();
-                            String content = "" + currencyResponces.getDate();
-                            textView.append(content);
+                            String date = "Date: " + currencyResponces.getDate();
+                            String timestamp = "Timestamp: " + currencyResponces.getTimestamp();
+                            textViewInfo.append(date + "\n" + timestamp);
 
+                            ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                                @Override
+                                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                                    return false;
+                                }
+
+                                @Override
+                                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                                    list.remove(viewHolder.getAdapterPosition());
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                            helper.attachToRecyclerView(recyclerView);
                         }
                     }
 
@@ -66,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void UploadInfo(View view) {
-        textView.setText("");
+        textViewInfo.setText("");
         getInfo();
     }
 }
