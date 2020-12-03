@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private TextView textViewInfo;
     private ValutesDatabase database;
-    private List<Valutes> valutesFromDb;
+    private List<Valutes> valutesFromDb = new ArrayList<>();
     private Collection<Valutes> valutes;
 
     @Override
@@ -56,16 +56,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
-                            valutes= response.body().getValute().values();
+                            valutes = response.body().getValute().values();
                             final List<Valutes> list = new ArrayList<>(valutes);
-                            adapter.setResponces(list);
                             CurrencyResponce currencyResponces = response.body();
                             String date = "Date: " + currencyResponces.getDate();
                             String timestamp = "Timestamp: " + currencyResponces.getTimestamp();
                             textViewInfo.append(date + "\n" + timestamp);
                             valutesFromDb = database.valutesDao().getAllValutes();
-                            list.clear();
                             list.addAll(valutesFromDb);
+                            adapter.setResponces(list);
                             adapter.notifyDataSetChanged();
 
                             ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -87,6 +86,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<CurrencyResponce> call, Throwable t) {
                         Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        valutesFromDb = database.valutesDao().getAllValutes();
+                        adapter.setResponces(valutesFromDb);
+
+                        ItemTouchHelper helper2 = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                            @Override
+                            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                                return false;
+                            }
+
+                            @Override
+                            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                                valutesFromDb.remove(viewHolder.getAdapterPosition());
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        helper2.attachToRecyclerView(recyclerView);
 
                     }
                 });
