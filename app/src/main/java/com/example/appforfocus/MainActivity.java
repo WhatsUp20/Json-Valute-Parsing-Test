@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private PostAdapter adapter;
     private TextView textViewInfo;
     private ValutesDatabase database;
+    private List<Valutes> valutesFromDb;
+    private Collection<Valutes> valutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PostAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
+        getInfo();
     }
 
     private void getInfo() {
@@ -53,15 +56,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CurrencyResponce> call, Response<CurrencyResponce> response) {
                         if (response.isSuccessful()) {
-                            final Collection<Valutes> valutes = response.body().getValute().values();
+                            valutes= response.body().getValute().values();
                             final List<Valutes> list = new ArrayList<>(valutes);
                             adapter.setResponces(list);
                             CurrencyResponce currencyResponces = response.body();
                             String date = "Date: " + currencyResponces.getDate();
                             String timestamp = "Timestamp: " + currencyResponces.getTimestamp();
                             textViewInfo.append(date + "\n" + timestamp);
-                            List<Valutes> valutesFromDb = database.valutesDao().getAllValutes();
+                            valutesFromDb = database.valutesDao().getAllValutes();
+                            list.clear();
                             list.addAll(valutesFromDb);
+                            adapter.notifyDataSetChanged();
 
                             ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                                 @Override
@@ -72,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                                     list.remove(viewHolder.getAdapterPosition());
-                                    //database.valutesDao().deleteValute(list.get(viewHolder.getAdapterPosition()));
                                     adapter.notifyDataSetChanged();
-
                                 }
                             });
                             helper.attachToRecyclerView(recyclerView);
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<CurrencyResponce> call, Throwable t) {
                         Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }
@@ -91,5 +95,10 @@ public class MainActivity extends AppCompatActivity {
     public void UploadInfo(View view) {
         textViewInfo.setText("");
         getInfo();
+    }
+
+    public void onClickNewValute(View view) {
+        Intent intent = new Intent(this, AddValuteActivity.class);
+        startActivity(intent);
     }
 }

@@ -50,5 +50,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:onClick="onClickNewValute"
+        app:backgroundTint="#40768F"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:srcCompat="@drawable/plus" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
