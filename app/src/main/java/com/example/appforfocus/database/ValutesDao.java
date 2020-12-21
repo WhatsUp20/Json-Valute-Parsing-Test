@@ -1,5 +1,6 @@
 package com.example.appforfocus.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,11 +14,11 @@ import java.util.List;
 public interface ValutesDao {
 
     @Query("SELECT*FROM valutes")
-    List<Valutes> getAllValutes();
+    LiveData<List<Valutes>> getAllValutes();
 
     @Insert
-    void insertValute(Valutes valutes);
+    void insertValute(List<Valutes> valutes);
 
-    @Delete
-    void deleteValute(Valutes valutes);
+    @Query("delete from valutes")
+    void removeAllValutes();
 }

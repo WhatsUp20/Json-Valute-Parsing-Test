@@ -41,9 +41,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     static class PostViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewId;
-        TextView textViewNumCode;
-        TextView textViewCharCode;
         TextView textViewNominal;
         TextView textViewName;
         TextView textViewValue;
@@ -52,9 +49,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewId = itemView.findViewById(R.id.text_view_id);
-            textViewNumCode = itemView.findViewById(R.id.text_view_num_code);
-            textViewCharCode = itemView.findViewById(R.id.text_view_char_code);
             textViewNominal = itemView.findViewById(R.id.text_view_nominal);
             textViewName = itemView.findViewById(R.id.text_view_name);
             textViewValue = itemView.findViewById(R.id.text_view_value);
@@ -62,9 +56,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         void bind(Valutes valutes) {
-            textViewId.setText("ID: " + valutes.getID());
-            textViewNumCode.setText("NumCode: " + valutes.getNumCode());
-            textViewCharCode.setText("CharCode: " + valutes.getCharCode());
             textViewNominal.setText("Nominal: " + valutes.getNominal());
             textViewName.setText("Name: " + valutes.getName());
             textViewValue.setText("Value: " + valutes.getValue());

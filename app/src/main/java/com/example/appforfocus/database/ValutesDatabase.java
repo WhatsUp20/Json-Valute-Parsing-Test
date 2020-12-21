@@ -8,6 +8,8 @@ import androidx.room.RoomDatabase;
 
 import com.example.appforfocus.Valutes;
 
+import retrofit2.Retrofit;
+
 @Database(entities = {Valutes.class}, version = 1, exportSchema = false)
 public abstract class ValutesDatabase extends RoomDatabase {
 
@@ -18,9 +20,7 @@ public abstract class ValutesDatabase extends RoomDatabase {
     public static ValutesDatabase getInstance(Context context) {
         synchronized (LOCK) {
             if (database == null) {
-                database = Room.databaseBuilder(context, ValutesDatabase.class, DB_NAME)
-                        .allowMainThreadQueries()
-                        .build();
+                database = Room.databaseBuilder(context, ValutesDatabase.class, DB_NAME).build();
             }
             return database;
         }
